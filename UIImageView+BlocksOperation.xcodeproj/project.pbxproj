@@ -1,0 +1,264 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4A129B6B154C41CC00B49785 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A129B6A154C41CC00B49785 /* UIKit.framework */; };
+		4A129B6D154C41CC00B49785 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A129B6C154C41CC00B49785 /* Foundation.framework */; };
+		4A129B6F154C41CC00B49785 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A129B6E154C41CC00B49785 /* CoreGraphics.framework */; };
+		4A129B75154C41CC00B49785 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A129B73154C41CC00B49785 /* InfoPlist.strings */; };
+		4A129B77154C41CC00B49785 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A129B76154C41CC00B49785 /* main.m */; };
+		4A129B7B154C41CC00B49785 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A129B7A154C41CC00B49785 /* AppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4A129B66154C41CC00B49785 /* UIImageView+BlocksOperation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UIImageView+BlocksOperation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A129B6A154C41CC00B49785 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4A129B6C154C41CC00B49785 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4A129B6E154C41CC00B49785 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4A129B72154C41CC00B49785 /* UIImageView+BlocksOperation-Info.plist */ = {isa = PBXFileReference; path = "UIImageView+BlocksOperation-Info.plist"; sourceTree = "<group>"; };
+		4A129B74154C41CC00B49785 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4A129B76154C41CC00B49785 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4A129B78154C41CC00B49785 /* UIImageView+BlocksOperation-Prefix.pch */ = {isa = PBXFileReference; path = "UIImageView+BlocksOperation-Prefix.pch"; sourceTree = "<group>"; };
+		4A129B79154C41CC00B49785 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		4A129B7A154C41CC00B49785 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4A129B63154C41CC00B49785 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A129B6B154C41CC00B49785 /* UIKit.framework in Frameworks */,
+				4A129B6D154C41CC00B49785 /* Foundation.framework in Frameworks */,
+				4A129B6F154C41CC00B49785 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4A129B5B154C41CC00B49785 = {
+			isa = PBXGroup;
+			children = (
+				4A129B70154C41CC00B49785 /* UIImageView+BlocksOperation */,
+				4A129B69154C41CC00B49785 /* Frameworks */,
+				4A129B67154C41CC00B49785 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4A129B67154C41CC00B49785 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A129B66154C41CC00B49785 /* UIImageView+BlocksOperation.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4A129B69154C41CC00B49785 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A129B6A154C41CC00B49785 /* UIKit.framework */,
+				4A129B6C154C41CC00B49785 /* Foundation.framework */,
+				4A129B6E154C41CC00B49785 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4A129B70154C41CC00B49785 /* UIImageView+BlocksOperation */ = {
+			isa = PBXGroup;
+			children = (
+				4A129B79154C41CC00B49785 /* AppDelegate.h */,
+				4A129B7A154C41CC00B49785 /* AppDelegate.m */,
+				4A129B71154C41CC00B49785 /* Supporting Files */,
+			);
+			path = "UIImageView+BlocksOperation";
+			sourceTree = "<group>";
+		};
+		4A129B71154C41CC00B49785 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4A129B72154C41CC00B49785 /* UIImageView+BlocksOperation-Info.plist */,
+				4A129B73154C41CC00B49785 /* InfoPlist.strings */,
+				4A129B76154C41CC00B49785 /* main.m */,
+				4A129B78154C41CC00B49785 /* UIImageView+BlocksOperation-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4A129B65154C41CC00B49785 /* UIImageView+BlocksOperation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A129B7E154C41CC00B49785 /* Build configuration list for PBXNativeTarget "UIImageView+BlocksOperation" */;
+			buildPhases = (
+				4A129B62154C41CC00B49785 /* Sources */,
+				4A129B63154C41CC00B49785 /* Frameworks */,
+				4A129B64154C41CC00B49785 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "UIImageView+BlocksOperation";
+			productName = "UIImageView+BlocksOperation";
+			productReference = 4A129B66154C41CC00B49785 /* UIImageView+BlocksOperation.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4A129B5D154C41CC00B49785 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = .;
+			};
+			buildConfigurationList = 4A129B60154C41CC00B49785 /* Build configuration list for PBXProject "UIImageView+BlocksOperation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4A129B5B154C41CC00B49785;
+			productRefGroup = 4A129B67154C41CC00B49785 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4A129B65154C41CC00B49785 /* UIImageView+BlocksOperation */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4A129B64154C41CC00B49785 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A129B75154C41CC00B49785 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4A129B62154C41CC00B49785 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A129B77154C41CC00B49785 /* main.m in Sources */,
+				4A129B7B154C41CC00B49785 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4A129B73154C41CC00B49785 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A129B74154C41CC00B49785 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4A129B7C154C41CC00B49785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4A129B7D154C41CC00B49785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4A129B7F154C41CC00B49785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UIImageView+BlocksOperation/UIImageView+BlocksOperation-Prefix.pch";
+				INFOPLIST_FILE = "UIImageView+BlocksOperation/UIImageView+BlocksOperation-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4A129B80154C41CC00B49785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UIImageView+BlocksOperation/UIImageView+BlocksOperation-Prefix.pch";
+				INFOPLIST_FILE = "UIImageView+BlocksOperation/UIImageView+BlocksOperation-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4A129B60154C41CC00B49785 /* Build configuration list for PBXProject "UIImageView+BlocksOperation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A129B7C154C41CC00B49785 /* Debug */,
+				4A129B7D154C41CC00B49785 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A129B7E154C41CC00B49785 /* Build configuration list for PBXNativeTarget "UIImageView+BlocksOperation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A129B7F154C41CC00B49785 /* Debug */,
+				4A129B80154C41CC00B49785 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4A129B5D154C41CC00B49785 /* Project object */;
+}
