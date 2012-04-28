@@ -13,6 +13,7 @@
 		4A129B75154C41CC00B49785 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A129B73154C41CC00B49785 /* InfoPlist.strings */; };
 		4A129B77154C41CC00B49785 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A129B76154C41CC00B49785 /* main.m */; };
 		4A129B7B154C41CC00B49785 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A129B7A154C41CC00B49785 /* AppDelegate.m */; };
+		4A129B83154C439200B49785 /* UIImageView+BlocksOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A129B82154C439200B49785 /* UIImageView+BlocksOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +21,14 @@
 		4A129B6A154C41CC00B49785 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4A129B6C154C41CC00B49785 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4A129B6E154C41CC00B49785 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4A129B72154C41CC00B49785 /* UIImageView+BlocksOperation-Info.plist */ = {isa = PBXFileReference; path = "UIImageView+BlocksOperation-Info.plist"; sourceTree = "<group>"; };
+		4A129B72154C41CC00B49785 /* UIImageView+BlocksOperation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UIImageView+BlocksOperation-Info.plist"; sourceTree = "<group>"; };
 		4A129B74154C41CC00B49785 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4A129B76154C41CC00B49785 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4A129B78154C41CC00B49785 /* UIImageView+BlocksOperation-Prefix.pch */ = {isa = PBXFileReference; path = "UIImageView+BlocksOperation-Prefix.pch"; sourceTree = "<group>"; };
-		4A129B79154C41CC00B49785 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		4A129B78154C41CC00B49785 /* UIImageView+BlocksOperation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+BlocksOperation-Prefix.pch"; sourceTree = "<group>"; };
+		4A129B79154C41CC00B49785 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4A129B7A154C41CC00B49785 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4A129B81154C439200B49785 /* UIImageView+BlocksOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+BlocksOperation.h"; path = "UIImageView+BlocksOperation/UIImageView+BlocksOperation.h"; sourceTree = "<group>"; };
+		4A129B82154C439200B49785 /* UIImageView+BlocksOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+BlocksOperation.m"; path = "UIImageView+BlocksOperation/UIImageView+BlocksOperation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +48,8 @@
 		4A129B5B154C41CC00B49785 = {
 			isa = PBXGroup;
 			children = (
-				4A129B70154C41CC00B49785 /* UIImageView+BlocksOperation */,
+				4A129B84154C444600B49785 /* UIImageView+BlocksOperation */,
+				4A129B70154C41CC00B49785 /* Demo */,
 				4A129B69154C41CC00B49785 /* Frameworks */,
 				4A129B67154C41CC00B49785 /* Products */,
 			);
@@ -69,13 +73,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4A129B70154C41CC00B49785 /* UIImageView+BlocksOperation */ = {
+		4A129B70154C41CC00B49785 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
 				4A129B79154C41CC00B49785 /* AppDelegate.h */,
 				4A129B7A154C41CC00B49785 /* AppDelegate.m */,
 				4A129B71154C41CC00B49785 /* Supporting Files */,
 			);
+			name = Demo;
 			path = "UIImageView+BlocksOperation";
 			sourceTree = "<group>";
 		};
@@ -88,6 +93,15 @@
 				4A129B78154C41CC00B49785 /* UIImageView+BlocksOperation-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4A129B84154C444600B49785 /* UIImageView+BlocksOperation */ = {
+			isa = PBXGroup;
+			children = (
+				4A129B81154C439200B49785 /* UIImageView+BlocksOperation.h */,
+				4A129B82154C439200B49785 /* UIImageView+BlocksOperation.m */,
+			);
+			name = "UIImageView+BlocksOperation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +168,7 @@
 			files = (
 				4A129B77154C41CC00B49785 /* main.m in Sources */,
 				4A129B7B154C41CC00B49785 /* AppDelegate.m in Sources */,
+				4A129B83154C439200B49785 /* UIImageView+BlocksOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
