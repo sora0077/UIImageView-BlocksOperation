@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 
 @interface UIImageView () <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
-
 @end
 
 @interface UIImageView (AddBlocksInPrivate)
@@ -22,7 +21,9 @@
 @property (retain, nonatomic) NSURLConnection *connection;
 @property (retain, nonatomic) NSMutableData *downloadData;
 @property (nonatomic) long long expectedLength;
+@property (nonatomic) BOOL isFinished;
 
++ (NSOperationQueue *)networkQueue;
 
 @end
 
@@ -46,14 +47,22 @@
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[self setImage:self.defaultImage];
 		
+	});
+	self.isFinished = FALSE;
+	[[UIImageView networkQueue] addOperationWithBlock:^{
 		self.connection = [[[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO] autorelease];
 		[self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 		[self.connection start];
-	});
+		
+		do {
+			[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+		} while (!self.isFinished);
+	}];
 }
 
 - (void)cancel
 {
+	self.isFinished = YES;
 	if (!self.connection) return;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		if (self.completion) {
@@ -108,6 +117,7 @@
 		});
 	});
 	dispatch_release(convertQueue);
+	self.isFinished = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -122,6 +132,7 @@
 		self.animations = nil;
 		self.completion = nil;
 	});
+	self.isFinished = YES;
 }
 
 @end
@@ -188,6 +199,28 @@
 {
 	if (expectedLength < 0) expectedLength = 0;
 	objc_setAssociatedObject(self, @"expectedLength", [NSNumber numberWithLongLong:expectedLength], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)isFinished
+{
+	return [objc_getAssociatedObject(self, @"expectedLength") boolValue];
+}
+
+- (void)setIsFinished:(BOOL)isFinished
+{
+	objc_setAssociatedObject(self, @"expectedLength", [NSNumber numberWithBool:isFinished], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
++ (NSOperationQueue *)networkQueue
+{
+	static NSOperationQueue *networkQueue;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		networkQueue = [[NSOperationQueue alloc] init];
+		networkQueue.maxConcurrentOperationCount = 1;
+	});
+	return networkQueue;
 }
 
 @end
