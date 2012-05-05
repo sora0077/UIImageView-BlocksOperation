@@ -54,6 +54,7 @@
 
 - (void)cancel
 {
+	if (!self.connection) return;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		if (self.completion) {
 			self.completion(self.defaultImage, [NSError errorWithDomain:NSURLErrorDomain code:kCFURLErrorCancelled userInfo:nil]);
@@ -75,7 +76,7 @@
 	self.downloadData = [NSMutableData dataWithLength:0];
 	self.expectedLength = [response expectedContentLength];
 	dispatch_async(dispatch_get_main_queue(), ^{
-		self.animations(0);
+		if (self.animations) self.animations(0);
 	});
 }
 
@@ -95,7 +96,6 @@
 	dispatch_async(convertQueue, ^{
 		UIImage *image = [UIImage imageWithData:self.downloadData];
 		if (image == nil) image = self.defaultImage;
-		self.downloadData = nil;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			if (self.completion) {
 				self.completion(image, nil);

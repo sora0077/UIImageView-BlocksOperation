@@ -12,12 +12,12 @@
 
 - (void)requestWithURL:(NSURL *)URL
 			animations:(void(^)(float progress))animations
-			completion:(void(^)(UIImage *image, NSError *))completion;
+			completion:(void(^)(UIImage *image, NSError *error))completion;
 
 - (void)requestWithURL:(NSURL *)URL
 		  defaultImage:(UIImage *)defaultImage
 			animations:(void (^)(float))animations
-			completion:(void (^)(UIImage *, NSError *))completion;
+			completion:(void (^)(UIImage *, NSError *error))completion;
 
 
 
