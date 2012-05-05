@@ -33,7 +33,7 @@
 	[self requestWithURL:URL defaultImage:nil animations:animations completion:completion];
 }
 
-- (void)requestWithURL:(NSURL *)URL defaultImage:(UIImage *)defaultImage animations:(void (^)(float))animations completion:(void (^)(UIImage *, NSError *))completion// cancel:(void (^)(void))cancel
+- (void)requestWithURL:(NSURL *)URL defaultImage:(UIImage *)defaultImage animations:(void (^)(float))animations completion:(void (^)(UIImage *, NSError *))completion
 {
 	if (self.animations || self.completion) {
 		[self cancel];
