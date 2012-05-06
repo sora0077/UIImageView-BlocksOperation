@@ -10,28 +10,36 @@
 #import <objc/runtime.h>
 
 @interface UIImageView () <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
-@end
-
-@interface UIImageView (AddBlocksInPrivate)
 
 @property (copy, nonatomic) void(^animations)(float);
 @property (copy, nonatomic) void(^completion)(UIImage *, NSError *);
 
-@property (copy, nonatomic) UIImage *defaultImage;
 @property (retain, nonatomic) NSURLConnection *connection;
 @property (retain, nonatomic) NSMutableData *downloadData;
 @property (nonatomic) long long expectedLength;
-@property (nonatomic) BOOL isFinished;
-
-+ (NSOperationQueue *)networkQueue;
+@property (nonatomic) BOOL isExecuting;
 
 @end
 
+
 @implementation UIImageView (BlocksOperation)
+
+#pragma mark - Public method
++ (NSOperationQueue *)networkQueue
+{
+	static NSOperationQueue *networkQueue;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		networkQueue = [[NSOperationQueue alloc] init];
+		networkQueue.maxConcurrentOperationCount = MAX_CONCURRENT_OPERATION_COUNT;
+	});
+	return networkQueue;
+}
+
 
 - (void)requestWithURL:(NSURL *)URL animations:(void (^)(float))animations completion:(void (^)(UIImage *, NSError *))completion
 {
-	[self requestWithURL:URL defaultImage:nil animations:animations completion:completion];
+	[self requestWithURL:URL defaultImage:self.defaultImage animations:animations completion:completion];
 }
 
 - (void)requestWithURL:(NSURL *)URL defaultImage:(UIImage *)defaultImage animations:(void (^)(float))animations completion:(void (^)(UIImage *, NSError *))completion
@@ -42,27 +50,26 @@
 	self.defaultImage = defaultImage;
 	self.animations = animations;
 	self.completion = completion;
+	self.isExecuting = YES;
 	
-	NSURLRequest *request = [NSURLRequest requestWithURL:URL];
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[self setImage:self.defaultImage];
-		
 	});
-	self.isFinished = FALSE;
+	
+	NSURLRequest *request = [NSURLRequest requestWithURL:URL];
 	[[UIImageView networkQueue] addOperationWithBlock:^{
 		self.connection = [[[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO] autorelease];
-		[self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 		[self.connection start];
 		
 		do {
 			[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-		} while (!self.isFinished);
+		} while (self.isExecuting);
 	}];
 }
 
 - (void)cancel
 {
-	self.isFinished = YES;
+	self.isExecuting = NO;
 	if (!self.connection) return;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		if (self.completion) {
@@ -76,10 +83,7 @@
 	});
 }
 
-#pragma mark - a
-//- (void)
-
-#pragma mark - 
+#pragma mark - NSURLConnectionDelegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
 	self.downloadData = [NSMutableData dataWithLength:0];
@@ -101,10 +105,11 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+	self.isExecuting = NO;
 	dispatch_queue_t convertQueue = dispatch_queue_create("convert data to image", NULL);
 	dispatch_async(convertQueue, ^{
 		UIImage *image = [UIImage imageWithData:self.downloadData];
-		if (image == nil) image = self.defaultImage;
+		image = image ? image : self.defaultImage;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			if (self.completion) {
 				self.completion(image, nil);
@@ -117,11 +122,11 @@
 		});
 	});
 	dispatch_release(convertQueue);
-	self.isFinished = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+	self.isExecuting = YES;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		if (self.completion) {
 			self.completion(self.defaultImage, error);
@@ -132,14 +137,9 @@
 		self.animations = nil;
 		self.completion = nil;
 	});
-	self.isFinished = YES;
 }
 
-@end
-
-
-@implementation UIImageView (AddBlocksInPrivate)
-
+#pragma mark - Category property
 - (void (^)(float))animations
 {
 	return objc_getAssociatedObject(self, @"animations");
@@ -201,26 +201,14 @@
 	objc_setAssociatedObject(self, @"expectedLength", [NSNumber numberWithLongLong:expectedLength], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (BOOL)isFinished
+- (BOOL)isExecuting
 {
-	return [objc_getAssociatedObject(self, @"expectedLength") boolValue];
+	return [objc_getAssociatedObject(self, @"isExecuting") boolValue];
 }
 
-- (void)setIsFinished:(BOOL)isFinished
+- (void)setIsExecuting:(BOOL)isExecuting
 {
-	objc_setAssociatedObject(self, @"expectedLength", [NSNumber numberWithBool:isFinished], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-
-+ (NSOperationQueue *)networkQueue
-{
-	static NSOperationQueue *networkQueue;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		networkQueue = [[NSOperationQueue alloc] init];
-		networkQueue.maxConcurrentOperationCount = 1;
-	});
-	return networkQueue;
+	objc_setAssociatedObject(self, @"isExecuting", [NSNumber numberWithBool:isExecuting], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
