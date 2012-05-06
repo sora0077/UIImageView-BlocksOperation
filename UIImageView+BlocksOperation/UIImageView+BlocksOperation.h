@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#define MAX_CONCURRENT_OPERATION_COUNT 1
+
 @interface UIImageView (BlocksOperation)
+@property (copy, nonatomic) UIImage *defaultImage;
+
++ (NSOperationQueue *)networkQueue;
+
 
 - (void)requestWithURL:(NSURL *)URL
 			animations:(void(^)(float progress))animations
