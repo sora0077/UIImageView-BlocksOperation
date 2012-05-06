@@ -25,31 +25,66 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
 	
-	UIProgressView *progressView = [[[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault] autorelease];
-	progressView.frame = CGRectMake(40, 40, 240, 20);
-	[self.window addSubview:progressView];
+	{
+		UIProgressView *progressView = [[[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault] autorelease];
+		progressView.frame = CGRectMake(15, 40, 140, 20);
+		[self.window addSubview:progressView];
+		
+		UIImageView *imageView = [[[UIImageView alloc] init] autorelease];
+		imageView.frame = CGRectMake(15, 60, 140, 140);
+		imageView.tag = 2112;
+		[imageView requestWithURL:[NSURL URLWithString:@"http://farm8.staticflickr.com/7151/6760135001_14c59a1490_o.jpg"]
+					   animations:^(float progress) {
+						   [progressView setProgress:progress animated:YES];
+					   }
+					   completion:^(UIImage *image, NSError *error) {
+						   if (!error) imageView.alpha = 0.0;
+						   [imageView setImage:image];
+						   [UIView animateWithDuration:0.2
+											animations:^{
+												imageView.alpha = 1.0;
+												progressView.alpha = 0.0;
+											}
+											completion:^(BOOL finished) {
+												[progressView removeFromSuperview];
+											}
+							];
+					   }
+		 ];
+		
+		[self.window addSubview:imageView];
+	}
+	{
+		UIProgressView *progressView = [[[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault] autorelease];
+		progressView.frame = CGRectMake(165, 40, 140, 20);
+		[self.window addSubview:progressView];
+		
+		UIImageView *imageView = [[[UIImageView alloc] init] autorelease];
+		imageView.frame = CGRectMake(165, 60, 140, 140);
+		imageView.tag = 2113;
+		[imageView requestWithURL:[NSURL URLWithString:@"http://farm8.staticflickr.com/7151/6760135001_14c59a1490_o.jpg"]
+					   animations:^(float progress) {
+						   [progressView setProgress:progress animated:YES];
+					   }
+					   completion:^(UIImage *image, NSError *error) {
+						   if (!error) imageView.alpha = 0.0;
+						   [imageView setImage:image];
+						   [UIView animateWithDuration:0.2
+											animations:^{
+												imageView.alpha = 1.0;
+												progressView.alpha = 0.0;
+											}
+											completion:^(BOOL finished) {
+												[progressView removeFromSuperview];
+											}
+							];
+					   }
+		 ];
+		
+		[self.window addSubview:imageView];
+	}
 	
-	UIImageView *imageView = [[[UIImageView alloc] init] autorelease];
-	imageView.frame = CGRectMake(20, 60, 280, 280);
-	imageView.tag = 2112;
-	[imageView requestWithURL:[NSURL URLWithString:@"http://farm8.staticflickr.com/7151/6760135001_14c59a1490_o.jpg"]
-				   animations:^(float progress) {
-					   [progressView setProgress:progress animated:YES];
-				   }
-				   completion:^(UIImage *image, NSError *error) {
-					   if (!error) imageView.alpha = 0.0;
-					   [imageView setImage:image];
-					   [UIView animateWithDuration:0.2
-										animations:^{
-											imageView.alpha = 1.0;
-											progressView.alpha = 0.0;
-										}
-										completion:^(BOOL finished) {
-											[progressView removeFromSuperview];
-										}
-						];
-				   }
-	 ];
+
 	
 	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 	cancelButton.frame = CGRectMake(100, 360, 120, 44);
@@ -58,7 +93,6 @@
 	
 	[self.window addSubview:cancelButton];
 	
-	[self.window addSubview:imageView];
 	
     [self.window makeKeyAndVisible];
     return YES;
