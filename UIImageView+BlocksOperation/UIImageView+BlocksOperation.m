@@ -19,6 +19,7 @@
 @property (nonatomic) long long expectedLength;
 @property (nonatomic) BOOL isExecuting;
 
+- (void)clearDelegateAndCancel;
 @end
 
 
@@ -52,18 +53,18 @@
 	self.completion = completion;
 	self.isExecuting = YES;
 	
-	dispatch_async(dispatch_get_main_queue(), ^{
-		[self setImage:self.defaultImage];
-	});
+	[self setImage:self.defaultImage];
 	
 	NSURLRequest *request = [NSURLRequest requestWithURL:URL];
 	[[UIImageView networkQueue] addOperationWithBlock:^{
 		self.connection = [[[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO] autorelease];
 		[self.connection start];
 		
-		do {
-			[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-		} while (self.isExecuting);
+		if (self.connection) {
+			do {
+				[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+			} while (self.isExecuting);
+		}
 	}];
 }
 
@@ -72,16 +73,24 @@
 	self.isExecuting = NO;
 	if (!self.connection) return;
 	dispatch_async(dispatch_get_main_queue(), ^{
-		if (self.completion) {
-			self.completion(self.defaultImage, [NSError errorWithDomain:NSURLErrorDomain code:kCFURLErrorCancelled userInfo:nil]);
-		}
-		[self.connection cancel];
-		self.connection = nil;
-		self.downloadData = nil;
-		self.animations = nil;
-		self.completion = nil;
+		NSError *errorReason = [NSError errorWithDomain:NSURLErrorDomain code:kCFURLErrorCancelled userInfo:nil];
+		if (self.completion) self.completion(self.defaultImage, errorReason);
+		[self clearDelegateAndCancel];
 	});
 }
+
+#pragma mark - Private method
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
+- (void)clearDelegateAndCancel
+{
+	[self.connection cancel];
+	self.connection = nil;
+	self.downloadData = nil;
+	self.animations = nil;
+	self.completion = nil;
+}
+#pragma clang diagnostic pop
 
 #pragma mark - NSURLConnectionDelegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -96,9 +105,9 @@
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
 	[self.downloadData appendData:data];
-	if (self.expectedLength && self.animations) {
+	if (self.expectedLength) {
 		dispatch_async(dispatch_get_main_queue(), ^{
-			self.animations((float)self.downloadData.length / self.expectedLength);
+			if (self.animations) self.animations((float)self.downloadData.length / self.expectedLength);
 		});
 	}
 }
@@ -111,14 +120,8 @@
 		UIImage *image = [UIImage imageWithData:self.downloadData];
 		image = image ? image : self.defaultImage;
 		dispatch_async(dispatch_get_main_queue(), ^{
-			if (self.completion) {
-				self.completion(image, nil);
-			}
-			[self.connection cancel];
-			self.connection = nil;
-			self.downloadData = nil;
-			self.animations = nil;
-			self.completion = nil;
+			if (self.completion) self.completion(image, nil);
+			[self clearDelegateAndCancel];
 		});
 	});
 	dispatch_release(convertQueue);
@@ -128,14 +131,8 @@
 {
 	self.isExecuting = YES;
 	dispatch_async(dispatch_get_main_queue(), ^{
-		if (self.completion) {
-			self.completion(self.defaultImage, error);
-		}
-		[self.connection cancel];
-		self.connection = nil;
-		self.downloadData = nil;
-		self.animations = nil;
-		self.completion = nil;
+		if (self.completion) self.completion(self.defaultImage, error);
+		[self clearDelegateAndCancel];
 	});
 }
 
